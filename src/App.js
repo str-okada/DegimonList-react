@@ -1,67 +1,35 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { getAllPokemon, getPokemon } from './utils/pokemon';
+import { getAllDegimon, getDegimon } from './utils/degimon';
 import Card from './components/Card';
 
 function App() {
   const initailURL = "https://digimon-api.vercel.app/api/digimon";
-  // const initailURL = "https://digimon-api.com/";
   
   const [loading, setLoading] = useState(true);
-  const [pokemonData,setPokemonData] = useState([]);
-  const [nextURL,setNextURL] = useState("");
-  const [prevURL,setPrevURL] = useState("");
+  const [degimonData,setDegimonData] = useState([]);
 
   useEffect(() => {
-    const fetchPokemonData = async () => {
-      // get all pokemon
-      let res = await getAllPokemon(initailURL);
+    const fetchDegimonData = async () => {
+      // get all degimon
+      let res = await getAllDegimon(initailURL);
 
       // get details!
-      loadPokemon(res);
+      loadDegimon(res);
 
-      // console.log(pokemonData)
-      // console.log(res);
-
-      // setNextURL(res.next);
-      // setPrevURL(res.previous);
       setLoading(false);
     }
-    fetchPokemonData();
+    fetchDegimonData();
   }, []);
 
-  const loadPokemon = async (data) => {
-    let _pokemon = await Promise.all(
-    data.map((pokemon) => {
-      // console.log(pokemon);
-      // let pokemonRecord = getPokemon(pokemon);
-      // return pokemonRecord;
-      return pokemon;
+  const loadDegimon = async (data) => {
+    let _degimon = await Promise.all(
+    data.map((degimon) => {
+      return degimon;
     })
     )
-    setPokemonData(_pokemon);
+    setDegimonData(_degimon);
   }
-  // console.log(pokemonData)
-
-  // const handleNextPage = async () => {
-  //   setLoading(true);
-  //   let data = await getAllPokemon(nextURL);
-  //   await loadPokemon(data.results);
-  //   setNextURL(data.next);
-  //   setPrevURL(data.previous);
-  //   setLoading(false);
-  // };
-  // const handlePrevPage = async () => {
-  //   if(!prevURL) return;
-
-  //   setLoading(true);
-  //   let data = await getAllPokemon(prevURL);
-  //   await loadPokemon(data.results);
-  //   setNextURL(data.next);
-  //   setPrevURL(data.previous);
-  //   setLoading(false);
-  // };
-
 
 
   return (
@@ -70,18 +38,14 @@ function App() {
       {loading ? (
         <h1>Loading...</h1>
       ) : (<>
-        <div className='pokemonCardContainer'>
+        <div className='degimonCardContainer'>
         {
-          pokemonData.map((pokemon, i)=>{
-            // return <div>Pokemon</div>;
-            return <Card key={i} pokemon={pokemon}></Card>
+          degimonData.map((degimon, i)=>{
+            // return <div>Degimon</div>;
+            return <Card key={i} degimon={degimon}></Card>
           })
         }
         </div>
-        {/* <div className='btn'>
-          <button onClick={handlePrevPage}>Prev</button>
-          <button onClick={handleNextPage}>Next</button>
-        </div> */}
       </>
       )}
     </div>

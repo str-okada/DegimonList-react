@@ -1,17 +1,17 @@
 import React from 'react'
 import "./card.css"
-const Card = ({ pokemon }) => {
+const Card = ({ degimon }) => {
 
-    console.log(pokemon)
+    console.log(degimon)
 
     return (
         <div className='card'>
             <div className='cardImg'>
-                <img src={pokemon.img}></img>
+                <img src={degimon.img}></img>
             </div>
-            <h3 className="cardName">{pokemon.name}</h3>
+            <h3 className="cardName">{degimon.name}</h3>
             <div className='cardInfo'>
-                <div>Level : {pokemon.level}</div>
+                <div>Level : {degimon.level}</div>
             </div>
         </div>
     )
